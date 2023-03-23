@@ -4,7 +4,7 @@ using UnityEngine;
 using static Sora;
 
 
-public class SoraModule : MonoBehaviour
+public class SoraQuickstart : MonoBehaviour
 {
     Sora sora;
     void DumpDeviceInfo(string name, Sora.DeviceInfo[] infos)

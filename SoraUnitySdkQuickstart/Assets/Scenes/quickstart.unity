@@ -1159,7 +1159,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 486334435}
-        m_TargetAssemblyTypeName: SoraModule, Assembly-CSharp
+        m_TargetAssemblyTypeName: SoraQuickstart, Assembly-CSharp
         m_MethodName: OnClickDisconnect
         m_Mode: 1
         m_Arguments:
@@ -1293,7 +1293,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 486334435}
-        m_TargetAssemblyTypeName: SoraModule, Assembly-CSharp
+        m_TargetAssemblyTypeName: SoraQuickstart, Assembly-CSharp
         m_MethodName: OnClickConnect
         m_Mode: 1
         m_Arguments:

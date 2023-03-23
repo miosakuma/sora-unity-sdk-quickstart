@@ -247,7 +247,7 @@ def main():
     # １個１個ファイルをコピーしていく
     sdk_path = 'SoraUnitySdk' if args.sdk_path is None else args.sdk_path
     for file in enum_all_files(sdk_path, sdk_path):
-        dst_base = os.path.join('SoraUnitySdkSamples', 'Assets')
+        dst_base = os.path.join('SoraUnitySdkQuickstart', 'Assets')
         # このディレクトリだけは全部置き換える
         if 'SoraUnitySdk.bundle' in file:
             continue
@@ -258,7 +258,7 @@ def main():
         shutil.copyfile(srcfile, dstfile)
     # .bundle ディレクトリの置き換え
     for root, dirs, _ in os.walk(sdk_path):
-        dst_base = os.path.join('SoraUnitySdkSamples', 'Assets')
+        dst_base = os.path.join('SoraUnitySdkQuickstart', 'Assets')
         for dir in dirs:
             if dir == 'SoraUnitySdk.bundle':
                 bundle_dir = os.path.relpath(os.path.join(root, dir), sdk_path)

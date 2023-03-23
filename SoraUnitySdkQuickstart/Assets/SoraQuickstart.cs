@@ -22,7 +22,13 @@ public class SoraQuickstart : MonoBehaviour
         DumpDeviceInfo("video capturer devices", Sora.GetVideoCapturerDevices());
         DumpDeviceInfo("audio recording devices", Sora.GetAudioRecordingDevices());
         DumpDeviceInfo("audio playout devices", Sora.GetAudioPlayoutDevices());
+
+        // Sora の生成、イベント受信の準備はアプリ開始時に一回だけやる
+        InitSora();
+
     }
+
+    // Sora の生成、イベント受信の準備をする。イベント発生時は何もしない。
     void InitSora()
     {
         sora = new Sora();
@@ -31,7 +37,8 @@ public class SoraQuickstart : MonoBehaviour
         sora.OnAddTrack = (trackId, connectionId) =>
         {
             Debug.LogFormat("OnAddTrack: trackId={0}, connectionId={1}", trackId, connectionId);
-/*            var obj = GameObject.Instantiate(baseContent, Vector3.zero, Quaternion.identity);
+/*            
+            var obj = GameObject.Instantiate(baseContent, Vector3.zero, Quaternion.identity);
             obj.name = string.Format("track {0}", trackId);
             obj.transform.SetParent(scrollViewContent.transform);
             obj.SetActive(true);
@@ -43,7 +50,8 @@ public class SoraQuickstart : MonoBehaviour
         sora.OnRemoveTrack = (trackId, connectionId) =>
         {
             Debug.LogFormat("OnRemoveTrack: trackId={0}, connectionId={1}", trackId, connectionId);
-/*            if (tracks.ContainsKey(trackId))
+/*            
+            if (tracks.ContainsKey(trackId))
             {
                 GameObject.Destroy(tracks[trackId]);
                 tracks.Remove(trackId);
@@ -92,6 +100,7 @@ public class SoraQuickstart : MonoBehaviour
         sora.DispatchEvents();
     }
 
+    // OnDestroy is called when terminate app
     void OnDestroy()
     {
         if (sora == null)
@@ -102,34 +111,27 @@ public class SoraQuickstart : MonoBehaviour
         sora = null;
         Debug.Log("Sora is Disposed");
     }
+
+    // Connect ボタンの押下
     public void OnClickConnect()
     {
-        InitSora();
+        // Sora に接続をする
         var config = new Sora.Config()
         {
             SignalingUrl = "wss://sora.example.com/signaling",
             ChannelId = "sora",
-            Role = Sora.Role.Sendrecv,
-            //Audio = false
+            Role = Sora.Role.Recvonly,
         };
         sora.Connect(config);
         Debug.LogFormat("Sora is Connected");
-
 
     }
 
     public void OnClickDisconnect()
     {
+        // Sora から切断をする
         sora.Disconnect();
         Debug.LogFormat("Sora is Disconnected");
-        sora.Dispose();
-        sora = null;
-        Debug.LogFormat("Sora is Disposed");
     }
 
-    void StopAudio() {
-            //audioSourceInput.Stop();
-            AudioRenderer.Stop();
-            //audioSourceOutput.Stop();
-    }
 }
